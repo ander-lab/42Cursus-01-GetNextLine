@@ -5,4 +5,4 @@ You must do a function that when calling it in a loop, it returns each line of a
 
 
 ## Flow chart of GNL
-<center>![GNL Diagram](/flow_charts/gnl_flow_chart.png)<center>
+![GNL Diagram](/flow_charts/gnl_flow_chart.png)
