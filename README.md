@@ -72,5 +72,5 @@ lee hasta null
     2. Si no entra porque no tiene '\n' se duplica la string, se limpia y se devuelve la string 
  
  <p align="center">
-  <img src="/flow_charts/ft_get_line_chart.png" />
+  <img src="https://github.com/ander-lab/42Cursus-01-GetNextLine/blob/main/flow_charts/get_line_flow_chart.png />
 </p>
