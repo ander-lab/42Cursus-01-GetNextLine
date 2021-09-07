@@ -1,7 +1,5 @@
 # MECÁNICA FUNCION
 
-Created: August 11, 2021 11:35 PM
-
 ### ¿Qué hace?
 
 La función devuelve un puntero con una linea de un archivo.
@@ -52,7 +50,7 @@ lee hasta null
 
 - **CHECK FUNCTION**
 
-    ### `char *check(char *str);`
+    ### `char *check(char *static);`
 
     1. → comprueba si la str recibida es valor nulo.
         1. libera memoria y retorna NULL
@@ -63,6 +61,8 @@ lee hasta null
 ![GNL Diagram](/flow_charts/ft_check_chart.png)
 
 - **GET LINE**
+
+    ### `char *check(char *str);
     1. Si tiene salto de linea, creamos una nueva str con substr dando como fin la len de la anterior función, duplicamos la static en una str temporal, hacemos free y después lo volvemos a asignar 
     2. Si no entra porque no tiene '\n' se duplica la string, se limpia y se devuelve la string 
     3. 
