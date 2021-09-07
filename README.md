@@ -10,7 +10,9 @@ Si no tiene salto de linea deberá devolver todo el archivo entero.
 
 ## Flujograma
 
-![https://media.vlpt.us/images/ljiwoo59/post/e1bf1799-8b15-426a-9055-2909b3687c0c/gnl-3.png](https://media.vlpt.us/images/ljiwoo59/post/e1bf1799-8b15-426a-9055-2909b3687c0c/gnl-3.png)
+<p align="center">
+  <img src="https://media.vlpt.us/images/ljiwoo59/post/e1bf1799-8b15-426a-9055-2909b3687c0c/gnl-3.png" />
+</p>
 
 1. Chequea si la variable estática `saved*[fd]*` incluye la '\n'.
 
