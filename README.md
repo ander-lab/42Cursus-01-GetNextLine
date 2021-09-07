@@ -2,8 +2,6 @@
 
 Created: August 11, 2021 11:35 PM
 
-![Captura de pantalla 2021-08-31 a las 11.12.32.png](MECA%CC%81NICA%20FUNCION%20265d096829e84dce8540b616452d7592/Captura_de_pantalla_2021-08-31_a_las_11.12.32.png)
-
 ### ¿Qué hace?
 
 La función devuelve un puntero con una linea de un archivo.
@@ -34,12 +32,12 @@ Ejemplo 1:
 gcc -Wall -Werror -Wextra -D BUFFER_SIZE=3 <archivos>.c.
 
 1-  A B C D 1 2 3 4 '\n'
-	      | |   |       '--> SE VUELVE A JUNTAR TODO Y SE DEVUELVE PORQUE HA ENCONTRADO UN '\n'
-				| |   '---> the same shit
-        | |          se junta con strjoin a la anterior. str = (A B C D ) 
-				| '---> se inicia el otra vez la función por dentro y recurre al la static para no volver a leer lo mismo.
-		    |       se junta con strjoin a la anterior. str = (A B C D )
-				'---> se acumula en el static *char;
+	      | |   | '--> SE VUELVE A JUNTAR TODO Y SE DEVUELVE PORQUE HA ENCONTRADO UN '\n'
+	      | |   '---> the same shit
+              | |          se junta con strjoin a la anterior. str = (A B C D ) 
+	      | '---> se inicia el otra vez la función por dentro y recurre al la static para no volver a leer lo mismo.
+	      |       se junta con strjoin a la anterior. str = (A B C D )
+	      '---> se acumula en el static *char;
 ```
 
 lee hasta null
