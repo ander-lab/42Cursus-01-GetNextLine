@@ -62,12 +62,15 @@ lee hasta null
 
     Retorna a otra función el contador, el str y el fd
 
-![GNL Diagram](/flow_charts/ft_check_chart.png)
-
+<p align="center">
+  <img src="flow_charts/ft_check_chart.png" />
+</p>
 - **GET LINE**
 
     ### `char *get_line(char *static, int len, const int fd);`
     1. Si tiene salto de linea, creamos una nueva str con substr dando como fin la len de la anterior función, duplicamos la static en una str temporal, hacemos free y después lo volvemos a asignar 
     2. Si no entra porque no tiene '\n' se duplica la string, se limpia y se devuelve la string 
  
-![GNL Diagram](/flow_charts/ft_get_line_chart.png)
+ <p align="center">
+  <img src="/flow_charts/ft_get_line_chart.png" />
+</p>
