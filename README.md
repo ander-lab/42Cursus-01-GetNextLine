@@ -48,7 +48,9 @@ lee hasta null
 
     ### `char *get_next_line(int fd)`
 
-![GNL Diagram](/flow_charts/gnl_flow_chart.png)
+<p align="center">
+  <img src="flow_charts/gnl_flow_chart.png" />
+</p>
 
 - **CHECK FUNCTION**
 
