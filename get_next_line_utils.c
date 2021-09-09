@@ -6,7 +6,7 @@
 /*   By: ajimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 11:49:19 by ajimenez          #+#    #+#             */
-/*   Updated: 2021/08/31 14:52:16 by ajimenez         ###   ########.fr       */
+/*   Updated: 2021/09/07 12:44:41 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ size_t	ft_strlen(const char *s)
 {
 	size_t	l;
 
+	l = 0;
 	while (s[l] != '\0')
 		++l;
 	return (l);
@@ -62,16 +63,42 @@ char	*ft_strchr(const char *s, int c)
 	return (0);
 }
 
-char	*ft_strcpy(char *dest, char *src)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	int	x;
+	char			*substr;
+	size_t			aux_start;
+	size_t			cont_substr;
 
-	x = 0;
-	while (src[x])
+	if (!s)
+		return (0);
+	aux_start = start;
+	cont_substr = 0;
+	while (cont_substr < len && s[aux_start++])
+		cont_substr++;
+	substr = (char *)malloc(cont_substr + 1);
+	if (!substr)
+		return (0);
+	aux_start = start;
+	cont_substr = 0;
+	while (cont_substr < len && aux_start < ft_strlen(s))
+		substr[cont_substr++] = s[aux_start++];
+	substr[cont_substr] = '\0';
+	return (substr);
+}
+
+void	*ft_calloc(size_t num, size_t size)
+{
+	void	*stack;
+	size_t	i;
+
+	stack = (void *)malloc(num * size);
+	if (!stack)
+		return (0);
+	i = 0;
+	while (i < (num * size))
 	{
-		dest[x] = src[x];
-		x++;
+		((unsigned char *)stack)[i] = '\0';
+		i++;
 	}
-	dest[x] = '\0';
-	return (dest);
-}	
+	return (stack);
+}
