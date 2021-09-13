@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 16:46:20 by ajimenez          #+#    #+#             */
-/*   Updated: 2021/09/13 11:36:23 by ajimenez         ###   ########.fr       */
+/*   Updated: 2021/09/13 12:08:40 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*check_boom(char **saved, int fd)
 	size_t	aux;
 
 	aux = 0;
-	if (saved[fd] == '\0'|| saved[fd][aux] == '\0')
+	if (saved[fd] == '\0' || saved[fd][aux] == '\0')
 	{
 		free(saved[fd]);
 		saved[fd] = NULL;
@@ -69,14 +69,14 @@ char	*check_boom(char **saved, int fd)
 	return (get_line(saved, fd, aux));
 }
 
-char	*get_next_line(int fd)
+char	*get_next_line(const int fd)
 {
 	ssize_t		chars;
 	static char	*saved[FILE_N];
 	char		*tmp;
 	char 		buff[BUFFER_SIZE + 1];
 
-	if (fd == -1 || read(fd, buff, BUFFER_SIZE) == -1)
+	if (fd < 0 || read(fd, buff, 0) == -1)
 		return  (0);
 	chars = read(fd, buff, BUFFER_SIZE);
 	while (chars)
