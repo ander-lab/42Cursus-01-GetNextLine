@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 16:46:20 by ajimenez          #+#    #+#             */
-/*   Updated: 2021/09/12 00:26:54 by Alejandro        ###   ########.fr       */
+/*   Updated: 2021/09/13 11:36:23 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,19 @@ char	*get_line(char **saved, int fd, size_t len)
 	char	*tmp;
 
 	line = NULL;
-	if (saved[fd][len] != '\n')
+	if (saved[fd][len] == '\n')
+	{
+		line = ft_substr(saved[fd], 0, len + 1);
+		//line = ft_strdup(&(saved[fd][len + 1]));
+		tmp = ft_strdup(&(saved[fd][len + 1]));
+		free(saved[fd]);
+		saved[fd] = tmp;
+	}
+	else
 	{
 		line = ft_strdup(saved[fd]);
 		free(saved[fd]);
 		saved[fd] = NULL;
-	}
-	else
-	{
-		//line = ft_substr(saved[fd], 0, len + 1);
-		line = ft_strdup(&(saved[fd][len + 1]));
-		tmp = ft_strdup(&(saved[fd][len + 1]));
-		free(saved[fd]);
-		saved[fd] = tmp;
 	}
 	return(line);
 }
@@ -58,9 +58,13 @@ char	*check_boom(char **saved, int fd)
 	size_t	aux;
 
 	aux = 0;
-	if (!saved[fd])
+	if (saved[fd] == '\0'|| saved[fd][aux] == '\0')
+	{
+		free(saved[fd]);
+		saved[fd] = NULL;
 		return(0);
-	while (!saved[fd][aux] && saved[fd][aux] != '\n')
+	}
+	while (saved[fd][aux] != '\0' && saved[fd][aux] != '\n')
 		aux++;
 	return (get_line(saved, fd, aux));
 }
@@ -70,16 +74,17 @@ char	*get_next_line(int fd)
 	ssize_t		chars;
 	static char	*saved[FILE_N];
 	char		*tmp;
-	char 		*buff[BUFFER_SIZE + 1];
-	char		*check;
+	char 		buff[BUFFER_SIZE + 1];
 
 	if (fd == -1 || read(fd, buff, BUFFER_SIZE) == -1)
 		return  (0);
 	chars = read(fd, buff, BUFFER_SIZE);
 	while (chars)
 	{
+		buff[chars] = '\0';
 		if (!saved[fd])
 			saved[fd] = ft_calloc(sizeof(char), BUFFER_SIZE);
+//system ("leaks a.out");
 		tmp = ft_strjoin(saved[fd], buff);
 		free(saved[fd]);
 		saved[fd] = tmp;
@@ -87,6 +92,5 @@ char	*get_next_line(int fd)
 			break ;
 		chars = read(fd, buff, BUFFER_SIZE);
 	}
-	check = check_boom(saved, fd);
-	return (check);
+	return (check_boom(saved, (const int)fd));
 }
