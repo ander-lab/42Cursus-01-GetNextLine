@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 16:46:20 by ajimenez          #+#    #+#             */
-/*   Updated: 2021/09/13 14:52:25 by ajimenez         ###   ########.fr       */
+/*   Updated: 2021/09/14 13:29:37 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,16 @@ char	*ft_strdup(char *s1)
 	return (s_dup);
 }
 
+char	*tmp_free(char **saved, int fd, char *buff)
+{
+	char	*tmp;
+
+	tmp = ft_strjoin(saved[fd], buff);
+	free(saved[fd]);
+	saved[fd] = tmp;
+	return (saved[fd]);
+}
+
 char	*get_line(char **saved, int fd, size_t len)
 {
 	char	*line;
@@ -49,7 +59,7 @@ char	*get_line(char **saved, int fd, size_t len)
 		free(saved[fd]);
 		saved[fd] = NULL;
 	}
-	return(line);
+	return (line);
 }
 
 char	*check_boom(char **saved, int fd)
@@ -61,7 +71,7 @@ char	*check_boom(char **saved, int fd)
 	{
 		free(saved[fd]);
 		saved[fd] = NULL;
-		return(0);
+		return (0);
 	}
 	while (saved[fd][aux] != '\0' && saved[fd][aux] != '\n')
 		aux++;
@@ -72,26 +82,24 @@ char	*get_next_line(int fd)
 {
 	ssize_t		chars;
 	static char	*saved[FILE_N];
-	char		*tmp;
-	char 		buff[BUFFER_SIZE + 1];
+	char		buff[BUFFER_SIZE + 1];
 
 	if (fd < 0 || read(fd, buff, 0) == -1)
-		return  (0);
+		return (0);
 	chars = read(fd, buff, BUFFER_SIZE);
 	if (chars == -1)
 		return (0);
 	buff[chars] = '\0';
-//system ("leaks a.out");
 	while (chars)
 	{
 		if (!saved[fd])
 			saved[fd] = ft_calloc(sizeof(char), 1);
-		tmp = ft_strjoin(saved[fd], buff);
-		free(saved[fd]);
-		saved[fd] = tmp;
+		tmp_free(saved, fd, buff);
 		if (ft_strchr(buff, '\n'))
 			break ;
 		chars = read(fd, buff, BUFFER_SIZE);
+		if (chars == -1)
+			return (0);
 		buff[chars] = '\0';
 	}
 	return (check_boom(saved, (const int)fd));
