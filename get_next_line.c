@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 16:46:20 by ajimenez          #+#    #+#             */
-/*   Updated: 2021/09/15 12:44:02 by ajimenez         ###   ########.fr       */
+/*   Updated: 2021/09/15 12:51:41 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,6 @@ char	*get_next_line(int fd)
 			return (0);
 		buff[chars] = '\0';
 	}
+	free (buff);
 	return (check_boom(saved, (const int)fd));
 }
