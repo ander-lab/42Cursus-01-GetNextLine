@@ -3,19 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajimenez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ajimenez <ajimenez@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/30 16:49:11 by ajimenez          #+#    #+#             */
-/*   Updated: 2021/08/31 10:17:02 by ajimenez         ###   ########.fr       */
+/*   Created: 2021/09/07 12:14:50 by ajimenez          #+#    #+#             */
+/*   Updated: 2021/09/14 17:28:59 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include "get_next_line.h"
 
 char	*get_next_line(int fd);
+
+void leak (void)
+{
+	system("leaks a.out");
+}
 
 int	main(int ac, char **av)
 {
@@ -34,11 +36,13 @@ int	main(int ac, char **av)
 		while (line)
 		{
 			printf("%i- %s", num, line);
+			free(line);
 			line = get_next_line(fd);
 			num++;
 		}
 		printf("%i- %s", num, line);
 	}
 	close(fd);
+	atexit(leak);
 	return (0);
 }
