@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 16:46:20 by ajimenez          #+#    #+#             */
-/*   Updated: 2021/09/14 13:29:37 by ajimenez         ###   ########.fr       */
+/*   Updated: 2021/09/15 12:44:02 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,13 @@ char	*check_boom(char **saved, int fd)
 char	*get_next_line(int fd)
 {
 	ssize_t		chars;
-	static char	*saved[FILE_N];
-	char		buff[BUFFER_SIZE + 1];
+	static char	*saved[32768];
+//	char		buff[1];
+	char		*buff;
 
+	buff = malloc(sizeof(char) + BUFFER_SIZE + 1);
+	if (!buff)
+		return (0);
 	if (fd < 0 || read(fd, buff, 0) == -1)
 		return (0);
 	chars = read(fd, buff, BUFFER_SIZE);

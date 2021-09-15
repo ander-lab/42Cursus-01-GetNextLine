@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 16:46:20 by ajimenez          #+#    #+#             */
-/*   Updated: 2021/09/15 11:13:03 by ajimenez         ###   ########.fr       */
+/*   Updated: 2021/09/15 12:25:14 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char	*get_next_line(int fd)
 {
 	ssize_t		chars;
 	static char	*saved[FD_SETSIZE];
-	char		buff[BUFFER_SIZE + 1];
+	static char		buff[BUFFER_SIZE + 1];
 
 	if (fd < 0 || read(fd, buff, 0) == -1)
 		return (0);
