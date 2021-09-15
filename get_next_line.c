@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 16:46:20 by ajimenez          #+#    #+#             */
-/*   Updated: 2021/09/15 12:51:41 by ajimenez         ###   ########.fr       */
+/*   Updated: 2021/09/15 16:46:00 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,6 @@ char	*ft_strdup(char *s1)
 	}
 	s_dup[i] = 0;
 	return (s_dup);
-}
-
-char	*tmp_free(char **saved, int fd, char *buff)
-{
-	char	*tmp;
-
-	tmp = ft_strjoin(saved[fd], buff);
-	free(saved[fd]);
-	saved[fd] = tmp;
-	return (saved[fd]);
 }
 
 char	*get_line(char **saved, int fd, size_t len)
@@ -78,34 +68,57 @@ char	*check_boom(char **saved, int fd)
 	return (get_line(saved, fd, aux));
 }
 
-char	*get_next_line(int fd)
+char	*get_chars(int fd, ssize_t chars, char **saved, char *buff)
 {
-	ssize_t		chars;
-	static char	*saved[32768];
-//	char		buff[1];
-	char		*buff;
+	char	*tmp;
 
-	buff = malloc(sizeof(char) + BUFFER_SIZE + 1);
-	if (!buff)
-		return (0);
-	if (fd < 0 || read(fd, buff, 0) == -1)
-		return (0);
-	chars = read(fd, buff, BUFFER_SIZE);
-	if (chars == -1)
-		return (0);
-	buff[chars] = '\0';
 	while (chars)
 	{
 		if (!saved[fd])
 			saved[fd] = ft_calloc(sizeof(char), 1);
-		tmp_free(saved, fd, buff);
+		tmp = ft_strjoin(saved[fd], buff);
+		free(saved[fd]);
+		saved[fd] = tmp;
 		if (ft_strchr(buff, '\n'))
-			break ;
+		{
+			free (buff);
+			return (check_boom(saved, fd));
+		}
 		chars = read(fd, buff, BUFFER_SIZE);
 		if (chars == -1)
+		{
+			free (buff);
 			return (0);
+		}
 		buff[chars] = '\0';
 	}
 	free (buff);
-	return (check_boom(saved, (const int)fd));
+	return (check_boom(saved, fd));
+}
+
+char	*get_next_line(int fd)
+{
+	ssize_t		chars;
+	static char	*saved[32768];
+	char		*buff;
+
+	buff = malloc(sizeof(char) * BUFFER_SIZE + 1);
+	if (!buff)
+	{
+		free (buff);
+		return (0);
+	}
+	if (fd < 0 || read(fd, buff, 0) == -1)
+	{
+		free (buff);
+		return (0);
+	}
+	chars = read(fd, buff, BUFFER_SIZE);
+	if (chars == -1)
+	{
+		free (buff);
+		return (0);
+	}
+	buff[chars] = '\0';
+	return (get_chars((const int)fd, chars, saved, buff));
 }

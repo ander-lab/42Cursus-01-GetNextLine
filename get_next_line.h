@@ -6,13 +6,12 @@
 /*   By: ajimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 11:52:02 by ajimenez          #+#    #+#             */
-/*   Updated: 2021/09/13 11:12:18 by ajimenez         ###   ########.fr       */
+/*   Updated: 2021/09/15 13:41:45 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# define FILE_N 1
 
 # include <fcntl.h>
 # include <unistd.h>
