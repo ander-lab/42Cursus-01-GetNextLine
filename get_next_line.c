@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 16:46:20 by ajimenez          #+#    #+#             */
-/*   Updated: 2021/09/15 16:46:00 by ajimenez         ###   ########.fr       */
+/*   Updated: 2021/09/17 18:54:50 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@ char	*ft_strdup(char *s1)
 {
 	char	*s_dup;
 	size_t	i;
+	size_t	len;
 
 	s_dup = (char *)malloc(ft_strlen(s1) + 1);
 	if (!s_dup && !s1)
 		return (0);
 	i = 0;
-	while (i < ft_strlen(s1) + 1)
+	len = ft_strlen(s1) + 1;
+	while (i < len)
 	{
 		((unsigned char *)s_dup)[i] = ((unsigned char *)s1)[i];
 		i++;
@@ -96,23 +98,37 @@ char	*get_chars(int fd, ssize_t chars, char **saved, char *buff)
 	return (check_boom(saved, fd));
 }
 
+char	check_read(ssize_t read, char *buff)
+{
+	int	check;
+
+	check = 0;
+	if (read == -1)
+	{
+		free(buff);
+		return (check);
+	}
+	check = 1;
+	return (check);
+}
+		
 char	*get_next_line(int fd)
 {
 	ssize_t		chars;
-	static char	*saved[32768];
+	static char	*saved[4096];
 	char		*buff;
 
-	buff = malloc(sizeof(char) * BUFFER_SIZE + 1);
-	if (!buff)
+	buff = malloc(BUFFER_SIZE + 1);
+	while (chars)
 	{
-		free (buff);
-		return (0);
+		chars = read(fd, buff, BUFFER_SIZE)
+		if (check_read(chars, buff) == 0)
+			return (0);
+		if (!chars)	
+			break ;
+		buff[chars] = '\0';
 	}
-	if (fd < 0 || read(fd, buff, 0) == -1)
-	{
-		free (buff);
-		return (0);
-	}
+	if()
 	chars = read(fd, buff, BUFFER_SIZE);
 	if (chars == -1)
 	{
