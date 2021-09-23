@@ -6,7 +6,7 @@
 /*   By: ajimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 11:49:19 by ajimenez          #+#    #+#             */
-/*   Updated: 2021/09/16 16:19:27 by Alejandro        ###   ########.fr       */
+/*   Updated: 2021/09/23 12:48:34 by Alejandro        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ size_t	ft_strlen(const char *s)
 	return (l);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin_gnl(char const *s1, char const *s2)
 {
 	char	*sjoin;
 	int		i;
@@ -54,20 +54,21 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (sjoin);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_isnewline_gnl(const char *s)
 {
+	char	c;
+
+	c = '\n';
 	while (*s != '\0')
 	{
 		if ((unsigned char)c == (unsigned char)*s)
 			return ((char *)s);
 		s++;
 	}
-	if (!c)
-		return ((char *)s);
 	return (0);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr_gnl(char const *s, unsigned int start, size_t len)
 {
 	char			*substr;
 	size_t			aux_start;
@@ -92,19 +93,23 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (substr);
 }
 
-void	*ft_calloc(size_t num, size_t size)
-{
-	void	*stack;
-	size_t	i;
 
-	stack = (void *)malloc(num * size);
-	if (!stack)
+char	*ft_strdup_gnl(const char *s1)
+{
+	char	*s_dup;
+	size_t	i;
+	size_t	len;
+
+	s_dup = (char *)malloc(ft_strlen(s1) + 1);
+	if (!s_dup && !s1)
 		return (0);
 	i = 0;
-	while (i < (num * size))
+	len = ft_strlen(s1) + 1;
+	while (i < len)
 	{
-		((unsigned char *)stack)[i] = '\0';
+		((unsigned char *)s_dup)[i] = ((unsigned char *)s1)[i];
 		i++;
 	}
-	return (stack);
+	s_dup[i] = 0;
+	return (s_dup);
 }
