@@ -6,119 +6,99 @@
 /*   By: ajimenez <ajimenez@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 16:46:20 by ajimenez          #+#    #+#             */
-/*   Updated: 2021/09/15 16:14:04 by ajimenez         ###   ########.fr       */
+/*   Updated: 2021/09/24 14:42:26 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-char	*ft_strdup(char *s1)
+void	ft_strdel(char **saved)
 {
-	char	*s_dup;
-	size_t	i;
-
-	s_dup = (char *)malloc(ft_strlen(s1) + 1);
-	if (!s_dup && !s1)
-		return (0);
-	i = 0;
-	while (i < ft_strlen(s1) + 1)
+	if (saved != NULL)
 	{
-		((unsigned char *)s_dup)[i] = ((unsigned char *)s1)[i];
-		i++;
+		free(*saved);
+		*saved = NULL;
 	}
-	s_dup[i] = 0;
-	return (s_dup);
 }
 
-char	*get_line(char **saved, int fd, size_t len)
+char	*ft_out(int fd, char *line, char **saved, char *buff)
 {
-	char	*line;
-	char	*tmp;
+	char	*ptr;
+	size_t	len;
 
-	line = NULL;
-	if (saved[fd][len] == '\n')
+	free (buff);
+	len = 0;
+	while (saved[fd][len] != '\n')
+		len++;
+	line = ft_substr(saved[fd], 0, len + 1);
+	ptr = ft_strdup(&(saved[fd][len + 1]));
+	if (!ptr)
 	{
-		line = ft_substr(saved[fd], 0, len + 1);
-		tmp = ft_strdup(&(saved[fd][len + 1]));
-		free(saved[fd]);
-		saved[fd] = tmp;
+		free(line);
+		return (0);
 	}
-	else
-	{
-		line = ft_strdup(saved[fd]);
-		free(saved[fd]);
-		saved[fd] = NULL;
-	}
+	free(saved[fd]);
+	saved[fd] = ptr;
 	return (line);
 }
 
-char	*check_boom(char **saved, int fd)
-{
-	size_t	aux;
-
-	aux = 0;
-	if (saved[fd] == '\0' || saved[fd][aux] == '\0')
-	{
-		free(saved[fd]);
-		saved[fd] = NULL;
-		return (0);
-	}
-	while (saved[fd][aux] != '\0' && saved[fd][aux] != '\n')
-		aux++;
-	return (get_line(saved, fd, aux));
-}
-
-char	*get_chars(int fd, ssize_t chars, char **saved, char *buff)
+char	*tmp_join(int fd, char **saved, char *buff, ssize_t chars)
 {
 	char	*tmp;
 
-	while (chars)
+	tmp = ft_strjoin(saved[fd], buff);
+	ft_strdel(&saved[fd]);
+	saved[fd] = tmp;
+	if (chars < 0)
+		ft_strdel(&saved[fd]);
+	return (saved[fd]);
+}
+
+char	*get_line(int fd, char **saved, ssize_t chars, char *buff)
+{
+	char	*line;
+
+	line = 0;
+	while (chars > 0)
 	{
-		if (!saved[fd])
-			saved[fd] = ft_calloc(sizeof(char), 1);
-		tmp = ft_strjoin(saved[fd], buff);
-		free(saved[fd]);
-		saved[fd] = tmp;
-		if (ft_strchr(buff, '\n'))
-		{
-			free (buff);
-			return (check_boom(saved, fd));
-		}
-		chars = read(fd, buff, BUFFER_SIZE);
-		if (chars == -1)
-		{
-			free (buff);
-			return (0);
-		}
+		if (ft_isnewline(saved[fd]))
+			return (ft_out(fd, line, saved, buff));
+		chars = read(fd, buff, chars);
 		buff[chars] = '\0';
+		if (!ft_isnewline(saved[fd]) && chars == 0)
+		{
+			line = ft_strdup(saved[fd]);
+			ft_strdel(&saved[fd]);
+			if (*line)
+			{
+				free (buff);
+				return (line);
+			}
+		}
+		saved[fd] = tmp_join(fd, saved, buff, chars);
 	}
+	ft_strdel(&line);
 	free (buff);
-	return (check_boom(saved, fd));
+	free (saved[fd]);
+	return (0);
 }
 
 char	*get_next_line(int fd)
 {
+	static char	*saved[4096];
 	ssize_t		chars;
-	static char	*saved[32768];
 	char		*buff;
 
-	buff = malloc(sizeof(char) + BUFFER_SIZE + 1);
+	buff = 0;
+	if (fd < 0 || fd >= 4096 || BUFFER_SIZE <= 0 || read(fd, buff, 0) == -1)
+		return (0);
+	if (!saved[fd])
+		saved[fd] = ft_strdup("");
+	if (!saved[fd])
+		return (0);
+	buff = malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (!buff)
-	{
-		free (buff);
 		return (0);
-	}
-	if (fd < 0 || read(fd, buff, 0) == -1)
-	{
-		free (buff);
-		return (0);
-	}
-	chars = read(fd, buff, BUFFER_SIZE);
-	if (chars == -1)
-	{
-		free (buff);
-		return (0);
-	}
-	buff[chars] = '\0';
-	return (get_chars((const int)fd, chars, saved, buff));
+	chars = BUFFER_SIZE;
+	return (get_line(fd, saved, chars, buff));
 }
