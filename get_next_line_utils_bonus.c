@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajimenez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/31 11:49:19 by ajimenez          #+#    #+#             */
-/*   Updated: 2021/09/07 12:44:41 by ajimenez         ###   ########.fr       */
+/*   Created: 2021/09/24 14:41:48 by ajimenez          #+#    #+#             */
+/*   Updated: 2021/09/24 14:41:50 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,17 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (sjoin);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_isnewline(const char *s)
 {
+	char	c;
+
+	c = '\n';
 	while (*s != '\0')
 	{
-		if ((unsigned char)c == (unsigned char)*s)
+		if ('\n' == *s)
 			return ((char *)s);
 		s++;
 	}
-	if (!c)
-		return ((char *)s);
 	return (0);
 }
 
@@ -68,9 +69,11 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	char			*substr;
 	size_t			aux_start;
 	size_t			cont_substr;
+	size_t			l;
 
 	if (!s)
 		return (0);
+	l = ft_strlen(s);
 	aux_start = start;
 	cont_substr = 0;
 	while (cont_substr < len && s[aux_start++])
@@ -80,25 +83,28 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		return (0);
 	aux_start = start;
 	cont_substr = 0;
-	while (cont_substr < len && aux_start < ft_strlen(s))
+	while (cont_substr < len && aux_start < l)
 		substr[cont_substr++] = s[aux_start++];
 	substr[cont_substr] = '\0';
 	return (substr);
 }
 
-void	*ft_calloc(size_t num, size_t size)
+char	*ft_strdup(char *s1)
 {
-	void	*stack;
+	char	*s_dup;
 	size_t	i;
+	size_t	len;
 
-	stack = (void *)malloc(num * size);
-	if (!stack)
-		return (0);
+	len = ft_strlen(s1) + 1;
+	s_dup = (char *)malloc(sizeof(char) * len);
+	if (!s_dup)
+		return (NULL);
 	i = 0;
-	while (i < (num * size))
+	while (i < len)
 	{
-		((unsigned char *)stack)[i] = '\0';
+		((unsigned char *)s_dup)[i] = ((unsigned char *)s1)[i];
 		i++;
 	}
-	return (stack);
+	s_dup[i - 1] = 0;
+	return (s_dup);
 }
