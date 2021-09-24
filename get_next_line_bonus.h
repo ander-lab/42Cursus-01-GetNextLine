@@ -6,7 +6,7 @@
 /*   By: ajimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 11:52:02 by ajimenez          #+#    #+#             */
-/*   Updated: 2021/09/15 11:13:08 by ajimenez         ###   ########.fr       */
+/*   Updated: 2021/09/24 14:45:02 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,21 @@
 # include <stdio.h>
 # include <stdlib.h>
 
+/*
+** libft functions
+*/
 size_t	ft_strlen(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strchr(const char *s, int c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-void	*ft_calloc(size_t num, size_t size);
 char	*ft_strdup(char *s1);
-char	*get_line(char **saved, int fd, size_t len);
-char	*check_boom(char **saved, int fd);
+/*
+** gnl functions
+*/
+void	ft_strdel(char **ptr);
+char	*ft_isnewline(const char *s);
+char	*ft_out(int fd, char *line, char **aux, char *buff);
+char	*tmp_join(int fd, char **saved, char *buff, ssize_t chars);
+char	*get_line(int fd, char **aux, ssize_t i, char *ptr);
 char	*get_next_line(int fd);
 
 #endif
