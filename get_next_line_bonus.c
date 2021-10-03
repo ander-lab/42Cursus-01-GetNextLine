@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajimenez <ajimenez@student.42madrid.c      +#+  +:+       +#+        */
+/*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/08 16:46:20 by ajimenez          #+#    #+#             */
-/*   Updated: 2021/09/24 14:42:26 by ajimenez         ###   ########.fr       */
+/*   Created: 2021/09/26 12:40:31 by ajimenez          #+#    #+#             */
+/*   Updated: 2021/09/26 12:40:33 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

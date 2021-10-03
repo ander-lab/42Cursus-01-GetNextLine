@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajimenez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/31 11:49:19 by ajimenez          #+#    #+#             */
-/*   Updated: 2021/09/24 14:32:07 by ajimenez         ###   ########.fr       */
+/*   Created: 2021/09/26 12:40:49 by ajimenez          #+#    #+#             */
+/*   Updated: 2021/09/26 12:40:52 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*ft_isnewline(const char *s)
 	c = '\n';
 	while (*s != '\0')
 	{
-		if ((unsigned char)c == (unsigned char)*s)
+		if ('\n' == *s)
 			return ((char *)s);
 		s++;
 	}

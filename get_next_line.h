@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajimenez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/31 11:52:02 by ajimenez          #+#    #+#             */
-/*   Updated: 2021/09/23 15:16:25 by Alejandro        ###   ########.fr       */
+/*   Created: 2021/09/26 12:40:21 by ajimenez          #+#    #+#             */
+/*   Updated: 2021/09/26 12:40:23 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,21 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-size_t	ft_strlen_gnl(const char *s);
-char	*ft_strjoin_gnl(char const *s1, char const *s2);
-char	*ft_strchr_gnl(const char *s, int c);
-char	*ft_substr_gnl(char const *s, unsigned int start, size_t len);
-char	*ft_strdup_gnl(const char *s1);
-void	ft_strdel_gnl(char **ptr);
-char	*ft_isnewline_gnl(const char *s);
-//char	*ft_out(int fd, char *line, char **aux);
+/*
+** libft functions
+*/
+size_t	ft_strlen(const char *s);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_strdup(char *s1);
+/*
+** gnl functions
+*/
+void	ft_strdel(char **ptr);
+char	*ft_isnewline(const char *s);
 char	*ft_out(int fd, char *line, char **aux, char *buff);
-char	*output(char *line, char *ptr);
-//char	*get_line(int fd, char **aux, char *ptr, ssize_t chars);
+char	*tmp_join(int fd, char **saved, char *buff, ssize_t chars);
 char	*get_line(int fd, char **aux, ssize_t i, char *ptr);
 char	*get_next_line(int fd);
-
 
 #endif

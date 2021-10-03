@@ -6,11 +6,11 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 14:41:48 by ajimenez          #+#    #+#             */
-/*   Updated: 2021/09/24 14:41:50 by ajimenez         ###   ########.fr       */
+/*   Updated: 2021/09/26 12:41:10 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *s)
 {
