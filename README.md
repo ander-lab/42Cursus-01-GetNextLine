@@ -48,10 +48,6 @@ lee hasta null
 
     ### `char *get_next_line(int fd)`
 
-<p align="center">
-  <img src="flow_charts/gnl_flow_chart.png" />
-</p>
-
 - **CHECK FUNCTION**
 
     ### `char *check(char *static);`
@@ -62,15 +58,9 @@ lee hasta null
 
     Retorna a otra función el contador, el str y el fd
 
-<p align="center">
-  <img src="flow_charts/ft_check_chart.png" />
-</p>
 - **GET LINE**
 
     ### `char *get_line(char *static, int len, const int fd);`
     1. Si tiene salto de linea, creamos una nueva str con substr dando como fin la len de la anterior función, duplicamos la static en una str temporal, hacemos free y después lo volvemos a asignar 
     2. Si no entra porque no tiene '\n' se duplica la string, se limpia y se devuelve la string 
  
- <p align="center">
-  <img src="https://github.com/ander-lab/42Cursus-01-GetNextLine/blob/main/flow_charts/get_line_flow_chart.png/>
-</p>
