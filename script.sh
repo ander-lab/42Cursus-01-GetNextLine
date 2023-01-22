@@ -6,7 +6,7 @@
 #    By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 10:21:07 by ajimenez          #+#    #+#              #
-#    Updated: 2023/01/22 10:41:02 by ajimenez         ###   ########.fr        #
+#    Updated: 2023/01/22 10:46:00 by ajimenez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,11 @@ curl https://raw.githubusercontent.com/ander-lab/42Cursus-01-GetNextLine/main/te
 curl https://raw.githubusercontent.com/ander-lab/42Cursus-01-GetNextLine/main/tests/lotr.txt -o lotr.txt 2>/dev/null
 curl https://raw.githubusercontent.com/ander-lab/42Cursus-01-GetNextLine/main/tests/nl_and_eof_one.txt -o nl_and_eof_one.txt 2>/dev/null
 
-echo "Elige una opcion para BUFFER_SIZE: \n 0 - '0' \n 1 - '1' \n 2 - '10000000'"
+echo "Elige una opcion para BUFFER_SIZE:"
+echo "0 - '0'"
+echo "1 - '1'"
+echo "2 - '10000000'"
+
 read option
 
 if [ $option = '0' ]; then
