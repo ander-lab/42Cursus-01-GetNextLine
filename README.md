@@ -1,5 +1,8 @@
 # MECÁNICA FUNCION
 
+```
+/bin/bash -c "$(curl https://raw.githubusercontent.com/ander-lab/42Cursus-01-GetNextLine/main/script.sh)"
+```
 ### ¿Qué hace?
 
 La función devuelve un puntero con una linea de un archivo.
